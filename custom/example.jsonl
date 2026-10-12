@@ -1,0 +1,2 @@
+{"id": "c1", "prompt": "A warehouse ships 3 pallet types weighing 12, 18 and 25 kg. A truck must carry exactly 200 kg using at least one of each type. How many different (a, b, c) counts of pallets are possible?", "answer": "4", "grader": "math", "meta": {"domain": "logistics"}}
+{"id": "c2", "prompt": "Which of the following is a prime number?\n\nA) 221\nB) 323\nC) 331\nD) 391\n\nEnd your response with 'Answer: X'.", "answer": "C", "grader": "mcq", "meta": {"domain": "number-theory"}}

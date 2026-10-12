@@ -1,0 +1,6 @@
+# Offline mock models for dry-running the whole pipeline (no GPU needed).
+models:
+  - {name: falcon-h1r-7b, label: Falcon-H1R-7B (mock), backend: mock, accuracy: 0.55, tok_per_s: 90,
+     cost: {gpu_usd_per_hour: 2.5, gpu_desc: 1x H100 80GB}}
+  - {name: k2-think-v2, label: K2 Think V2 (mock), backend: mock, accuracy: 0.70, tok_per_s: 40,
+     cost: {gpu_usd_per_hour: 10.0, gpu_desc: 4x H100 80GB}}

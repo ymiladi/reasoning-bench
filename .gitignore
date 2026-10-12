@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+logs/
+# Frozen items and outputs contain gated benchmark text (GPQA, ZebraLogic): never commit or publish.
+data/
+results/
+results_smoke/

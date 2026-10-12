@@ -1,0 +1,85 @@
+# Task suite. samples = generations per item (pass@1 is averaged over them).
+# est_out_tokens is only used by `python -m bench estimate` to forecast cost.
+
+tasks:
+  competition_math_2026:
+    loader: competition_math
+    label: AIME + HMMT 2026
+    description: >-
+      63 competition problems from AIME 2026 and HMMT Feb 2026, released after both open
+      models (Jan 2026), so the cleanest contamination-free signal in the suite. Headline math metric.
+    sources:
+      - {repo: MathArena/aime_2026, label: aime26}
+      - {repo: MathArena/hmmt_feb_2026, label: hmmt26}
+    samples: 8
+    breakdown_by: [source]
+    est_out_tokens: 22000
+
+  aime_2025:
+    loader: competition_math
+    label: AIME 2025 (reference)
+    description: >-
+      30 problems that both open-model cards report on. Used to check this setup reproduces
+      published numbers (Falcon-H1R 83.1, K2 Think V2 90.4); not a clean signal (pre-release).
+    sources:
+      - {repo: MathArena/aime_2025, label: aime25}
+    samples: 8
+    est_out_tokens: 20000
+
+  math500:
+    loader: math500
+    label: MATH-500 (150)
+    description: 150 problems stratified by difficulty level. Near-saturated; kept as a floor check.
+    n_items: 150
+    seed: 0
+    samples: 2
+    breakdown_by: [level]
+    est_out_tokens: 4000
+
+  gpqa_diamond:
+    loader: gpqa
+    label: GPQA Diamond
+    description: >-
+      198 graduate-level biology/chemistry/physics multiple-choice questions; option order
+      shuffled once per item (same for every model). Gated: accept terms on Hugging Face first.
+    n_items: null
+    seed: 0
+    samples: 4
+    sensitive: true
+    breakdown_by: [domain]
+    est_out_tokens: 8000
+
+  livecodebench:
+    loader: livecodebench
+    label: LiveCodeBench (2025)
+    description: >-
+      120 competitive-programming problems dated 2025 (LCB release v5-v6), stratified by
+      difficulty, graded by running hidden tests.
+    files: [test5.jsonl, test6.jsonl]
+    date_from: "2025-01-01"
+    n_items: 120
+    seed: 0
+    samples: 2
+    breakdown_by: [difficulty]
+    est_out_tokens: 14000
+
+  zebralogic:
+    loader: zebralogic
+    label: ZebraLogic (grid)
+    description: >-
+      120 logic-grid puzzles stratified by grid size; solved only if every cell is right
+      (cell accuracy also reported). Gated: accept terms on Hugging Face first.
+    n_items: 120
+    seed: 0
+    samples: 2
+    breakdown_by: [bucket]
+    est_out_tokens: 9000
+
+  # Your own held-out problems - the strongest contamination-free signal. Uncomment to use.
+  # custom:
+  #   loader: custom
+  #   label: Custom held-out set
+  #   description: Problems written in-house, never published.
+  #   path: custom/my_tasks.jsonl
+  #   samples: 4
+  #   est_out_tokens: 10000

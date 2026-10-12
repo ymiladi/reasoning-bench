@@ -1,0 +1,7 @@
+# Harness (client side). vLLM is installed separately on the GPU box: see scripts/setup_gpu_box.sh
+openai>=1.40
+datasets>=3.0
+huggingface_hub>=0.25
+math-verify[antlr4_13_2]>=0.7
+numpy>=1.26
+pyyaml>=6.0

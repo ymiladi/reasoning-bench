@@ -1,0 +1,39 @@
+# Each model's own recommended sampling settings (from its model card / API docs),
+# with ONE shared output budget (max_tokens) so no model gets more room to think.
+
+models:
+  - name: falcon-h1r-7b
+    label: Falcon-H1R-7B (TII)
+    backend: openai                      # vLLM OpenAI-compatible server
+    base_url: http://localhost:8001/v1
+    model_id: tiiuae/Falcon-H1R-7B
+    concurrency: 128                     # vLLM batches internally; this is just in-flight requests
+    params:
+      temperature: 0.6                   # model card recommendation
+      top_p: 0.95
+      max_tokens: 64000
+    cost:
+      gpu_usd_per_hour: 2.5              # edit to your actual rate
+      gpu_desc: 1x H100 80GB
+      est_throughput_tok_s: 2500         # rough prior for `estimate`; real cost uses measured wall-clock
+    notes: "7.6B hybrid Transformer+Mamba2. vLLM --reasoning-parser deepseek_r1; temp 0.6 / top_p 0.95 per model card."
+
+  - name: k2-think-v2
+    label: K2 Think V2 (MBZUAI)
+    backend: openai
+    base_url: http://localhost:8002/v1
+    model_id: IFM/K2-Think-V2
+    concurrency: 128
+    params:
+      temperature: 1.0                   # model card serving config
+      top_p: 1.0
+      max_tokens: 64000
+      extra_body:
+        top_k: -1
+        chat_template_kwargs:
+          reasoning_effort: high         # the only effort level the authors evaluated
+    cost:
+      gpu_usd_per_hour: 10.0             # edit: e.g. 4x H100 80GB
+      gpu_desc: 4x H100 80GB
+      est_throughput_tok_s: 1200         # rough prior for `estimate`
+    notes: "73B dense, served in bf16 (weights ship as F32). reasoning_effort=high, temp 1.0 / top_p 1.0 per model card."
